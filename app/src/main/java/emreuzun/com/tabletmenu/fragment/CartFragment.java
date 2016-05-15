@@ -80,7 +80,7 @@ public class CartFragment extends Fragment {
 
     private void setTotalPrice() {
         item_total.setText(" - " + global.getCartItemTotal() + " Items");
-        price_total.setText(" $ " + global.getCartPriceTotal());
+        price_total.setText(" \u20BA " + global.getCartPriceTotal());
     }
 
     private void dialogCartAction(final Product model, final int position) {

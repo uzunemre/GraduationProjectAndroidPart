@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Shopper App</string>
-    <string name="slogan">Shopping on The Go</string>
+    <string name="app_name">Restaurant Başlık</string>
+    <string name="slogan">Restautant Slogan</string>
 
     <string name="about_text">E-Commerce aplication template with material design.
     \n\nImage source :
@@ -9,9 +9,9 @@
     </string>
 
     <!--string drawer menu-->
-    <string name="menu_cart">Cart</string>
-    <string name="menu_new">New Items</string>
-    <string name="menu_promotions">Promotions</string>
+    <string name="menu_cart">Sipariş</string>
+    <string name="menu_new">Günün Menüsü</string>
+    <string name="menu_promotions">Promosyonlar</string>
 
     <string name="menu_clothing">Clothing</string>
     <string name="menu_shoes">Shoes</string>

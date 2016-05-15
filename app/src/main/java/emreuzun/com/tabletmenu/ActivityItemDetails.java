@@ -153,7 +153,8 @@ public class ActivityItemDetails extends AppCompatActivity {
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setHomeButtonEnabled(true);
       //  actionBar.setTitle(itemModel.getCategory());  //Test
-        actionBar.setTitle("Test123");
+       // actionBar.setTitle("Test123");
+        actionBar.setTitle("");
     }
 
     private void dialogCartDetails() {

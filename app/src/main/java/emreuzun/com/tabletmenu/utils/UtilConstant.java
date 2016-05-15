@@ -6,5 +6,5 @@ package emreuzun.com.tabletmenu.utils;
 public class UtilConstant {
 
     public static final String URL ="http://uzunemre.net";
-    public static final String URL_IMAGES = "http://uzunemre.net/WebService/images/";
+    public static final String URL_IMAGES = "http://uzunemre.net/TabletMenu/";
 }

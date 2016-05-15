@@ -6,18 +6,22 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
+
+import java.net.URL;
 import java.util.ArrayList;
+
 import emreuzun.com.tabletmenu.retrofit.CategoryRetrofit;
 import emreuzun.com.tabletmenu.retrofit.Product;
 import emreuzun.com.tabletmenu.retrofit.RestInterfaceController;
 import emreuzun.com.tabletmenu.retrofit.RetrofitModel;
+import emreuzun.com.tabletmenu.utils.PhoneInfo;
 import emreuzun.com.tabletmenu.utils.ShowMessage;
 import emreuzun.com.tabletmenu.utils.UtilConstant;
 import retrofit.Callback;
 import retrofit.RestAdapter;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
-
 
 
 public class ActivityDownload extends Activity {
@@ -30,7 +34,7 @@ public class ActivityDownload extends Activity {
     private RestInterfaceController restInterface;
     private ArrayList<Product> list_product;
     private ArrayList<CategoryRetrofit> list_category = new ArrayList<CategoryRetrofit>();
-
+    private String base_path = "/TabletMenu/api/ApiProduct/GetFood/";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +43,12 @@ public class ActivityDownload extends Activity {
 
         product_download = (Button) findViewById(R.id.btndownload);
         showMessage = new ShowMessage(this);
+        String mac_address = PhoneInfo.getWifiMacAddress();
+        mac_address = mac_address.replaceAll(":","");
+
+        base_path = base_path +mac_address;
+        showMessage.Toast(mac_address);
+       // Toast.makeText(getApplicationContext(),mac_address,Toast.LENGTH_LONG).show();
 
 
 
@@ -49,13 +59,20 @@ public class ActivityDownload extends Activity {
     public void btnDownloadClick(View view) {
 
         restAdapter = new RestAdapter.Builder()
-                .setEndpoint(UtilConstant.URL)
+                .setEndpoint(UtilConstant.URL+base_path)
                 .build();
 
         restInterface = restAdapter.create(RestInterfaceController.class);
 
 
-        restInterface.getJsonValues(new Callback<RetrofitModel>() {
+        showMessage.Toast(UtilConstant.URL+base_path);
+
+
+
+
+
+
+      restInterface.getJsonValues(new Callback<RetrofitModel>() {
             @Override
             public void success(RetrofitModel retrofitModel, Response response) {
 
@@ -74,9 +91,13 @@ public class ActivityDownload extends Activity {
 
             @Override
             public void failure(RetrofitError error) {
+
                 showMessage.Toast(error.getMessage());
             }
         });
+
+
+
 
     }
 
@@ -101,7 +122,7 @@ public class ActivityDownload extends Activity {
                 products.setId(retrofitModel.getCategories().get(i).getProducts().get(j).getId());
                 products.setDescription(retrofitModel.getCategories().get(i).getProducts().get(j).getDescription());
                 products.setName(retrofitModel.getCategories().get(i).getProducts().get(j).getName());
-                products.setPicture(retrofitModel.getCategories().get(i).getProducts().get(j).getPicture());
+                products.setPicture(UtilConstant.URL_IMAGES+retrofitModel.getCategories().get(i).getProducts().get(j).getPicture());
                 products.setPrice(retrofitModel.getCategories().get(i).getProducts().get(j).getPrice());
                 list_product.add(products);
             }

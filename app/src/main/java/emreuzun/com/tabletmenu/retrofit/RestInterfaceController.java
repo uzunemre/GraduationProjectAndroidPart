@@ -1,5 +1,6 @@
 package emreuzun.com.tabletmenu.retrofit;
 
+
 import retrofit.Callback;
 import retrofit.http.GET;
 
@@ -9,8 +10,13 @@ import retrofit.http.GET;
 public interface RestInterfaceController{
 
 
-    @GET("/Test/api/Product/GetFood/1234567")
+
+    //@GET("/TabletMenu/api/ApiProduct/GetFood/1234567")
+    @GET("/")
     void getJsonValues(Callback<RetrofitModel> response);
+
+
+
 
 
 }

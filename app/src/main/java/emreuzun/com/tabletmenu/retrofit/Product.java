@@ -108,7 +108,7 @@ public class Product implements Parcelable {
     }
 
     public String getStrPrice() {
-        return "$ "+getPrice();
+        return "\u20BA "+getPrice();
     }
 
 

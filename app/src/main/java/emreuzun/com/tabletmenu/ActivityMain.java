@@ -20,12 +20,9 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-
 import android.widget.TextView;
 import android.widget.Toast;
-
 import java.util.ArrayList;
-
 import emreuzun.com.tabletmenu.data.GlobalVariable;
 import emreuzun.com.tabletmenu.data.Tools;
 import emreuzun.com.tabletmenu.fragment.CartFragment;
@@ -117,8 +114,7 @@ public class ActivityMain extends AppCompatActivity {
             menu.add(category_list.get(i).getName()); //Serverdan kategorileri çektik ekledik
 
         }
-        menu.add("Clothing");
-        menu.add("Shoes");
+
 
 
 

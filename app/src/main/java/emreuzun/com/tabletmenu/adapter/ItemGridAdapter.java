@@ -56,7 +56,7 @@ public class ItemGridAdapter extends RecyclerView.Adapter<ItemGridAdapter.ViewHo
         public ViewHolder(View v) {
             super(v);
             title = (TextView) v.findViewById(R.id.title);
-            like = (TextView) v.findViewById(R.id.like);
+           // like = (TextView) v.findViewById(R.id.like);  // like iptal oldu görünümde
             price = (TextView) v.findViewById(R.id.price);
             image = (ImageView) v.findViewById(R.id.image);
             lyt_parent = (RelativeLayout) v.findViewById(R.id.lyt_parent);
@@ -93,7 +93,7 @@ public class ItemGridAdapter extends RecyclerView.Adapter<ItemGridAdapter.ViewHo
         final Product p = filtered_items.get(position);
         holder.title.setText(p.getName());
        // holder.like.setText(p.getLikes());
-        holder.like.setText("Test");
+       // holder.like.setText("Test");
         holder.price.setText(p.getStrPrice());
         Picasso.with(ctx).load(p.getPicture()).into(holder.image);
 

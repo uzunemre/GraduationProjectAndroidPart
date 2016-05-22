@@ -1,6 +1,7 @@
 package emreuzun.com.tabletmenu.utils;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.widget.Toast;
 
 /**
@@ -9,6 +10,7 @@ import android.widget.Toast;
 public class ShowMessage {
 
     Activity activity;
+    ProgressDialog progress;
 
     public ShowMessage(Activity activity)
     {
@@ -19,4 +21,19 @@ public class ShowMessage {
     {
         Toast.makeText(activity,message,Toast.LENGTH_SHORT).show();
     }
+
+    public void showProgressDialog(String message)
+    {
+
+        progress = ProgressDialog.show(activity, "Bağlanılıyor",
+                message, true);
+    }
+
+
+    public void stopProgressDialog()
+    {
+
+        progress.dismiss();
+    }
+
 }

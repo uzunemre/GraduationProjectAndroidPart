@@ -47,7 +47,7 @@ public class ActivityDownload extends Activity {
         mac_address = mac_address.replaceAll(":","");
 
         base_path = base_path +mac_address;
-        showMessage.Toast(mac_address);
+        //showMessage.Toast(mac_address);
        // Toast.makeText(getApplicationContext(),mac_address,Toast.LENGTH_LONG).show();
 
 
@@ -57,6 +57,8 @@ public class ActivityDownload extends Activity {
 
 
     public void btnDownloadClick(View view) {
+
+        showMessage.showProgressDialog("Lütfen Bekleyiniz");
 
         restAdapter = new RestAdapter.Builder()
                 .setEndpoint(UtilConstant.URL+base_path)
@@ -76,16 +78,29 @@ public class ActivityDownload extends Activity {
             @Override
             public void success(RetrofitModel retrofitModel, Response response) {
 
+               // showMessage.Toast(""+retrofitModel.getCategories().size());
 
-                //showMessage.Toast("Success+ActivityDownload"+retrofitModel.getCategories().get(0).
-                  //      getProducts().get(0).getName());
-                list_category = getCategory(retrofitModel, response);
+                if(retrofitModel.getCategories().size()==0)
+                {
+                    showMessage.Toast("Aktivasyon gerekli");
+                    showMessage.stopProgressDialog();
+                }
+
+                else
+                {
+                    showMessage.stopProgressDialog();
+                    //showMessage.Toast("Success+ActivityDownload"+retrofitModel.getCategories().get(0).
+                    //      getProducts().get(0).getName());
+               list_category = getCategory(retrofitModel, response);
                 //  showMessage.Toast(list_category.get(0).getProducts().get(0).getName());
                 Intent intent = new Intent(ActivityDownload.this, ActivityMain.class);
                 Bundle bundle = new Bundle();
                 bundle.putParcelableArrayList("data", list_category);
                 intent.putExtras(bundle);
                 startActivity(intent);
+                }
+
+
 
             }
 

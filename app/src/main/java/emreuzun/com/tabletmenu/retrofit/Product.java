@@ -1,7 +1,5 @@
 
-/**
- * Created by Emre on 6.3.2016.
- */
+
 
 package emreuzun.com.tabletmenu.retrofit;
 import android.os.Parcel;

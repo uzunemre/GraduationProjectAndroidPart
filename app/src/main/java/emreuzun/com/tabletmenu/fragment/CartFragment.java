@@ -18,13 +18,25 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import emreuzun.com.tabletmenu.R;
 import emreuzun.com.tabletmenu.adapter.CartListAdapter;
+
+
 import emreuzun.com.tabletmenu.data.GlobalVariable;
-import emreuzun.com.tabletmenu.model.ItemModel;
+
+import emreuzun.com.tabletmenu.retrofit.Order;
+import emreuzun.com.tabletmenu.retrofit.PostOrder;
 import emreuzun.com.tabletmenu.retrofit.Product;
+import emreuzun.com.tabletmenu.utils.PhoneInfo;
+import emreuzun.com.tabletmenu.utils.UtilConstant;
 import emreuzun.com.tabletmenu.widget.DividerItemDecoration;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 
 public class CartFragment extends Fragment {
@@ -34,11 +46,27 @@ public class CartFragment extends Fragment {
     private CartListAdapter mAdapter;
     private TextView item_total, price_total;
     private LinearLayout lyt_notfound;
+    private String mac_address;
+    PostOrder post;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_cart, null);
+
+
+        mac_address = PhoneInfo.getWifiMacAddress(); // büyük harf ve :'lı şekilde geliyor
+        mac_address = mac_address.replaceAll(":","");
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(UtilConstant.URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        post = retrofit.create(PostOrder.class);
+
+
+
         global = (GlobalVariable) getActivity().getApplication();
         item_total = (TextView) view.findViewById(R.id.item_total);
         price_total = (TextView) view.findViewById(R.id.price_total);
@@ -141,6 +169,11 @@ public class CartFragment extends Fragment {
         builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
+
+                //Toast.makeText(getActivity(),global.getCart().get(0).getName()+":"+global.getCart().get(0).getTotal(),Toast.LENGTH_LONG).show();
+
+
+                PosttoServer();
                 global.clearCart();
                 mAdapter.notifyDataSetChanged();
                 Snackbar.make(view, "Checkout success", Snackbar.LENGTH_SHORT).show();
@@ -148,6 +181,50 @@ public class CartFragment extends Fragment {
         });
         builder.setNegativeButton("No", null);
         builder.show();
+    }
+
+
+    // Sipariş Detayları hangi üründen kaçar tane olduğu gidecek
+    private String OrderDetails()
+    {
+
+        String order_details="";
+
+        for(int i =0;i<global.getCart().size();i++)
+        {
+            order_details = order_details + global.getCart().get(i).getName()+":"+global.getCart().get(i).getTotal();
+
+        }
+
+
+        return order_details;
+    }
+
+
+    private void PosttoServer()
+    {
+        Order order = new Order();
+
+        order.setDescription(OrderDetails());
+        order.setTable_number(10);
+        order.setMac_address(mac_address);
+
+        Call<String> call = post.createOrder(order);
+
+        call.enqueue(new Callback<String>() {
+            @Override
+            public void onResponse(Call<String> call, Response<String> response) {
+
+                Toast.makeText(getActivity(),response.body(),Toast.LENGTH_LONG).show();
+            }
+
+            @Override
+            public void onFailure(Call<String> call, Throwable t) {
+
+                Toast.makeText(getActivity(),t.getMessage(),Toast.LENGTH_LONG).show();
+
+            }
+        });
     }
 
 }

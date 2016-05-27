@@ -6,11 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Toast;
-
-import java.net.URL;
 import java.util.ArrayList;
-
 import emreuzun.com.tabletmenu.retrofit.CategoryRetrofit;
 import emreuzun.com.tabletmenu.retrofit.Product;
 import emreuzun.com.tabletmenu.retrofit.RestInterfaceController;
@@ -34,7 +30,8 @@ public class ActivityDownload extends Activity {
     private RestInterfaceController restInterface;
     private ArrayList<Product> list_product;
     private ArrayList<CategoryRetrofit> list_category = new ArrayList<CategoryRetrofit>();
-    private String base_path = "/TabletMenu/api/ApiProduct/GetFood/";
+   // private String base_path = "/TabletMenu/api/ApiProduct/GetFood/";
+    private String base_path = "/api/ApiProduct/GetFood/";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +40,7 @@ public class ActivityDownload extends Activity {
 
         product_download = (Button) findViewById(R.id.btndownload);
         showMessage = new ShowMessage(this);
-        String mac_address = PhoneInfo.getWifiMacAddress();
+        String mac_address = PhoneInfo.getWifiMacAddress(); // büyük harf ve :'lı şekilde geliyor
         mac_address = mac_address.replaceAll(":","");
 
         base_path = base_path +mac_address;
@@ -67,9 +64,9 @@ public class ActivityDownload extends Activity {
         restInterface = restAdapter.create(RestInterfaceController.class);
 
 
-        showMessage.Toast(UtilConstant.URL+base_path);
+        //showMessage.Toast(UtilConstant.URL+base_path);
 
-
+        //url linkini göster
 
 
 

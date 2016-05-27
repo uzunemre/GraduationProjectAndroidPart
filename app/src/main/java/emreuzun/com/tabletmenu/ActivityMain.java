@@ -71,7 +71,7 @@ public class ActivityMain extends AppCompatActivity {
         Bundle bundle = getIntent().getExtras();
         category_list = bundle.getParcelableArrayList("data");
         message = new ShowMessage(this);
-        message.Toast(category_list.get(0).getProducts().get(0).getName());
+       // message.Toast(category_list.get(0).getProducts().get(0).getName());
     }
 
     private void initToolbar() {
@@ -137,7 +137,7 @@ public class ActivityMain extends AppCompatActivity {
                 drawerLayout.closeDrawers();
                 actionBar.setTitle(menuItem.getTitle());
                 int a= menuItem.getItemId();
-                Toast.makeText(getApplicationContext(),""+a,Toast.LENGTH_LONG).show();
+              //  Toast.makeText(getApplicationContext(),""+a,Toast.LENGTH_LONG).show();
                 if(a==0)
                 {
                     displayView(a, menuItem.getTitle().toString());
@@ -206,10 +206,13 @@ public class ActivityMain extends AppCompatActivity {
             case 0:
                 fragment = new CategoryFragment();
                 bundle.putString(CategoryFragment.TAG_CATEGORY, title);
+
                 break;
 
             case R.id.nav_cart:
+                //Sipariş Ekranına git
                 fragment = new CartFragment();
+                //Toast.makeText(getApplicationContext(),"Test",Toast.LENGTH_LONG).show();
                 break;
             case R.id.nav_new:
                 fragment = new CategoryFragment();

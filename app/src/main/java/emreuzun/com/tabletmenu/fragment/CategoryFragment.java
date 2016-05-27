@@ -58,7 +58,7 @@ public class CategoryFragment extends Fragment {
 
         if(cat_object!=null)
         {
-            message.Toast(cat_object.getName());
+            //message.Toast(cat_object.getName());
             items = ServerData.getProductsFromServer(cat_object);
             // En başta new items açılıyor. Ona uygun kategory object yok serverda null gelicek
         }
@@ -109,7 +109,7 @@ public class CategoryFragment extends Fragment {
         Intent intent = getActivity().getIntent();
         Bundle bundle = getActivity().getIntent().getExtras();
         category_list = bundle.getParcelableArrayList("data");
-        message.Toast(category_list.get(0).getProducts().get(0).getName());
+       // message.Toast(category_list.get(0).getProducts().get(0).getName());
 
     }
 

@@ -136,6 +136,9 @@ public class ActivityDownload extends Activity {
                 products.setName(retrofitModel.getCategories().get(i).getProducts().get(j).getName());
                 products.setPicture(UtilConstant.URL_IMAGES+retrofitModel.getCategories().get(i).getProducts().get(j).getPicture());
                 products.setPrice(retrofitModel.getCategories().get(i).getProducts().get(j).getPrice());
+                products.setCalorie(retrofitModel.getCategories().get(i).getProducts().get(j).getCalorie());
+
+               // products.setCalorie(10);
                 list_product.add(products);
             }
 

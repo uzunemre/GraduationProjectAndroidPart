@@ -14,6 +14,7 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -70,10 +71,11 @@ public class ActivityItemDetails extends AppCompatActivity {
         initToolbar();
         ImageView image = (ImageView)findViewById(R.id.image);
         Picasso.with(this).load(itemModel.getPicture()).into(image);
+        Log.d("ItemDetailPicturePath",itemModel.getPicture());
         ((TextView) findViewById(R.id.title)).setText(itemModel.getName());
       //  ((ImageView)findViewById(R.id.image)).setImageResource(itemModel.);  Burayı Picasso yap
         ((TextView)findViewById(R.id.price)).setText(itemModel.getStrPrice());
-        ((TextView)findViewById(R.id.likes)).setText("Test"); //Test
+        ((TextView)findViewById(R.id.likes)).setText(itemModel.getCalorie()+" Kalori"); //Test
         ((TextView)findViewById(R.id.sales)).setText(Constant.getRandomSales());
         ((TextView)findViewById(R.id.reviews)).setText(Constant.getRandomReviews());
         final Button bt_cart = (Button) findViewById(R.id.bt_cart);

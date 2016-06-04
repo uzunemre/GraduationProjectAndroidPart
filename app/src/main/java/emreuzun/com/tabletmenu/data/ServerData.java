@@ -19,7 +19,7 @@ public class ServerData {
         {
             Product item = new Product(cat.getProducts().get(i).getId(),cat.getProducts().get(i).getDescription(),
                     cat.getProducts().get(i).getName(),cat.getProducts().get(i).getPicture(),
-                    cat.getProducts().get(i).getPrice());
+                    cat.getProducts().get(i).getPrice(),cat.getProducts().get(i).getCalorie());
 
             items.add(item);
         }

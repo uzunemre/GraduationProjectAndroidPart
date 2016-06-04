@@ -19,7 +19,7 @@ public class Tools {
             strBuild.append(android.os.Build.VERSION.RELEASE.substring(0, 2));
             f = new Float(strBuild.toString());
         } catch (NumberFormatException e) {
-            Log.e("", "erro ao recuperar a versão da API" + e.getMessage());
+            Log.e("", "API" + e.getMessage());
         }
 
         return f.floatValue();

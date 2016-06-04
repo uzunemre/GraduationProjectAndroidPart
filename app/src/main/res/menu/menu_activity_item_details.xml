@@ -5,17 +5,17 @@
     <item
         android:id="@+id/action_settings"
         android:orderInCategory="100"
-        android:title="Setting"
+        android:title="Ayarlar"
         app:showAsAction="never" />
     <item
         android:id="@+id/action_credit"
         android:orderInCategory="100"
-        android:title="Credit"
+        android:title="Paylaş"
         app:showAsAction="never" />
     <item
         android:id="@+id/action_about"
         android:orderInCategory="100"
-        android:title="About"
+        android:title="Hakkımızda"
         app:showAsAction="never" />
     <item
         android:id="@+id/action_cart"

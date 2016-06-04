@@ -15,10 +15,11 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
+
 
 import emreuzun.com.tabletmenu.R;
 import emreuzun.com.tabletmenu.adapter.CartListAdapter;
@@ -91,7 +92,8 @@ public class CartFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 if (mAdapter.getItemCount() != 0) {
-                    checkoutConfirmation();
+                    //checkoutConfirmation();
+                    openDialog();
                 }
             }
         });
@@ -162,7 +164,7 @@ public class CartFragment extends Fragment {
         dialog.getWindow().setAttributes(lp);
     }
 
-    private void checkoutConfirmation() {
+   /* private void checkoutConfirmation() {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setTitle("Checkout Confirmation");
         builder.setMessage("Are you sure continue to checkout?");
@@ -176,10 +178,54 @@ public class CartFragment extends Fragment {
                 PosttoServer();
                 global.clearCart();
                 mAdapter.notifyDataSetChanged();
-                Snackbar.make(view, "Checkout success", Snackbar.LENGTH_SHORT).show();
+
             }
         });
         builder.setNegativeButton("No", null);
+        builder.show();
+    }*/
+
+
+    private void openDialog()
+    {
+        LayoutInflater inflater = LayoutInflater.from(getActivity());
+        View subView = inflater.inflate(R.layout.order_form_dialog, null);
+        final EditText table_number_edit_text = (EditText)subView.findViewById(R.id.dialog_table_number);
+        final EditText product_info_edit_text = (EditText)subView.findViewById(R.id.dialog_product_info);
+        final EditText product_note_edit_text = (EditText)subView.findViewById(R.id.dialog_note);
+        product_info_edit_text.setText(OrderDetails()+"\n"+"Toplam ="+OrderPrice()+"\u20BA");
+
+
+
+        android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(getActivity());
+
+
+        builder.setView(subView);
+        android.app.AlertDialog alertDialog = builder.create();
+
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+                // masa numarasını aldık
+                int table_number = Integer.parseInt(table_number_edit_text.getText().toString());
+                String customer_notes = product_note_edit_text.getText().toString();
+
+
+                PosttoServer(table_number, customer_notes);
+                global.clearCart();
+                mAdapter.notifyDataSetChanged();
+
+            }
+        });
+
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Snackbar.make(view, "Cancel", Snackbar.LENGTH_SHORT).show();
+            }
+        });
+
         builder.show();
     }
 
@@ -192,22 +238,42 @@ public class CartFragment extends Fragment {
 
         for(int i =0;i<global.getCart().size();i++)
         {
-            order_details = order_details + global.getCart().get(i).getName()+":"+global.getCart().get(i).getTotal();
+            // sipariş verirken detaylar yazdır mobil tarafında
+            //order_details = order_details + global.getCart().get(i).getName()+"x =  "+global.getCart().get(i).getTotal()+"\u20BA\n";
+            Product product = global.getCart().get(i);
 
+            order_details = order_details + product.getName()+" x "+product.getTotal()+" ="+product.getSumPrice()+" \u20BA\n";
         }
-
 
         return order_details;
     }
 
 
-    private void PosttoServer()
+    private float OrderPrice()
+    {
+        float order_price=0;
+
+        for(int i =0;i<global.getCart().size();i++)
+        {
+            order_price = order_price + global.getCart().get(i).getSumPrice();
+
+        }
+
+        return  order_price;
+    }
+
+
+    private void PosttoServer(int table_number, String customer_note)
     {
         Order order = new Order();
 
-        order.setDescription(OrderDetails());
-        order.setTable_number(10);
+        order.setProducts(OrderDetails());
+        order.setTable_number(table_number);
         order.setMac_address(mac_address);
+        order.setDescription(customer_note);
+        order.setPrice(Double.parseDouble(""+OrderPrice()));
+        order.setDelivery(false);
+
 
         Call<String> call = post.createOrder(order);
 
@@ -215,14 +281,15 @@ public class CartFragment extends Fragment {
             @Override
             public void onResponse(Call<String> call, Response<String> response) {
 
-                Toast.makeText(getActivity(),response.body(),Toast.LENGTH_LONG).show();
+               // Toast.makeText(getActivity(),response.body(),Toast.LENGTH_LONG).show();
+                Snackbar.make(view, response.body(), Snackbar.LENGTH_SHORT).show();
             }
 
             @Override
             public void onFailure(Call<String> call, Throwable t) {
 
-                Toast.makeText(getActivity(),t.getMessage(),Toast.LENGTH_LONG).show();
-
+                //Toast.makeText(getActivity(),t.getMessage(),Toast.LENGTH_LONG).show();
+                Snackbar.make(view,"Sipariş Verilemedi", Snackbar.LENGTH_SHORT).show();
             }
         });
     }

@@ -84,7 +84,7 @@ public class CategoryFragment extends Fragment {
 
 
 
-        mAdapter = new ItemGridAdapter(getActivity(), items);
+        mAdapter = new ItemGridAdapter(getActivity(), items);  // gelen itemleri göster(kategori içerisinde)
         recyclerView.setAdapter(mAdapter);
 
         mAdapter.setOnItemClickListener(new ItemGridAdapter.OnItemClickListener() {

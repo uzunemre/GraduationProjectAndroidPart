@@ -204,7 +204,7 @@ public class ActivityMain extends AppCompatActivity {
         switch (id) {
 
             case 0:
-                fragment = new CategoryFragment();
+                fragment = new CategoryFragment();  // serverdan gelen kategori isimlerinin ekranına git
                 bundle.putString(CategoryFragment.TAG_CATEGORY, title);
 
                 break;

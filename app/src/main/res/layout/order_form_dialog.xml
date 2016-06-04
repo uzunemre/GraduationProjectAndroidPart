@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <EditText
+        android:id="@+id/dialog_product_info"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:editable="false"
+        />
+
+
+    <EditText
+        android:id="@+id/dialog_table_number"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Masa Numarası Giriniz"
+        android:inputType="number"
+        />
+
+
+
+    <EditText
+        android:id="@+id/dialog_note"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Not Ekleyiniz"/>
+
+
+
+</LinearLayout>

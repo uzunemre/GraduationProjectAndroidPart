@@ -2,6 +2,7 @@ package emreuzun.com.tabletmenu.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,10 +23,13 @@ import java.util.List;
 import emreuzun.com.tabletmenu.R;
 import emreuzun.com.tabletmenu.model.ItemModel;
 import emreuzun.com.tabletmenu.retrofit.Product;
+import emreuzun.com.tabletmenu.utils.UtilConstant;
 
 //Ana Sayfa Görünümü
 
 public class ItemGridAdapter extends RecyclerView.Adapter<ItemGridAdapter.ViewHolder> implements Filterable {
+
+
 
     private final int mBackground;
     private List<Product> original_items = new ArrayList<>();
@@ -97,6 +101,7 @@ public class ItemGridAdapter extends RecyclerView.Adapter<ItemGridAdapter.ViewHo
         holder.price.setText(p.getStrPrice());
         Picasso.with(ctx).load(p.getPicture()).into(holder.image);
 
+        Log.d("UrlImage",p.getPicture());
         // Here you apply the animation when the view is bound
         setAnimation(holder.itemView, position);
 

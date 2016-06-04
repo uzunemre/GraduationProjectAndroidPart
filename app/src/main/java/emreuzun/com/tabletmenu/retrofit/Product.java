@@ -27,16 +27,21 @@ public class Product implements Parcelable {
     @Expose
     public Float price;
 
+    @SerializedName("calorie")
+    @Expose
+    public Integer calorie;
+
     int total=1;
 
 
-    public Product(Integer Id, String description, String name, String picture, Float price)
+    public Product(Integer Id, String description, String name, String picture, Float price, Integer calorie)
     {
         this.Id = Id;
         this.description = description;
         this.name = name;
         this.picture = picture;
         this.price = price;
+        this.calorie = calorie;
     }
 
     public Product(Parcel in)
@@ -46,6 +51,7 @@ public class Product implements Parcelable {
         this.name = in.readString();
         this.picture = in.readString();
         this.price = in.readFloat();
+        this.calorie = in.readInt();
     }
 
     public Product()
@@ -109,7 +115,13 @@ public class Product implements Parcelable {
         return "\u20BA "+getPrice();
     }
 
+    public Integer getCalorie() {
+        return calorie;
+    }
 
+    public void setCalorie(Integer calorie) {
+        this.calorie = calorie;
+    }
 
     @Override
     public int describeContents() {
@@ -124,6 +136,7 @@ public class Product implements Parcelable {
             dest.writeString(name);
             dest.writeString(picture);
             dest.writeFloat(price);
+            dest.writeInt(calorie);
 
     }
 

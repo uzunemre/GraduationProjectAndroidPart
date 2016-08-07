@@ -24,7 +24,7 @@ public class ActivityDownload extends Activity {
 
 
     ShowMessage showMessage;
-    Button product_download;
+
     private ProgressDialog progressDialog;
     private RestAdapter restAdapter;
     private RestInterfaceController restInterface;
@@ -38,7 +38,7 @@ public class ActivityDownload extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_download);
 
-        product_download = (Button) findViewById(R.id.btndownload);
+
         showMessage = new ShowMessage(this);
         String mac_address = PhoneInfo.getWifiMacAddress(); // büyük harf ve :'lı şekilde geliyor
         mac_address = mac_address.replaceAll(":","");
@@ -47,13 +47,15 @@ public class ActivityDownload extends Activity {
         //showMessage.Toast(mac_address);
        // Toast.makeText(getApplicationContext(),mac_address,Toast.LENGTH_LONG).show();
 
-
+        DownloadItems();
 
 
     }
 
 
-    public void btnDownloadClick(View view) {
+
+
+    public void DownloadItems() {
 
         showMessage.showProgressDialog("Lütfen Bekleyiniz");
 

@@ -6,9 +6,11 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.ShareCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -109,7 +111,7 @@ public class CartFragment extends Fragment {
     }
 
     private void setTotalPrice() {
-        item_total.setText(" - " + global.getCartItemTotal() + " Items");
+       // item_total.setText(" - " + global.getCartItemTotal() + " ");
         price_total.setText(" \u20BA " + global.getCartPriceTotal());
     }
 
@@ -193,7 +195,7 @@ public class CartFragment extends Fragment {
         final EditText table_number_edit_text = (EditText)subView.findViewById(R.id.dialog_table_number);
         final EditText product_info_edit_text = (EditText)subView.findViewById(R.id.dialog_product_info);
         final EditText product_note_edit_text = (EditText)subView.findViewById(R.id.dialog_note);
-        product_info_edit_text.setText(OrderDetails()+"\n"+"Toplam ="+OrderPrice()+"\u20BA");
+        product_info_edit_text.setText(OrderDetailsforCustomer()+"\n"+"Toplam ="+OrderPrice());
 
 
 
@@ -207,14 +209,34 @@ public class CartFragment extends Fragment {
             @Override
             public void onClick(DialogInterface dialog, int which) {
 
-                // masa numarasını aldık
-                int table_number = Integer.parseInt(table_number_edit_text.getText().toString());
-                String customer_notes = product_note_edit_text.getText().toString();
+                String test_table;
+                test_table = table_number_edit_text.getText().toString();
 
 
-                PosttoServer(table_number, customer_notes);
-                global.clearCart();
-                mAdapter.notifyDataSetChanged();
+
+
+               if(test_table.equals(""))
+                    Snackbar.make(view, "Lütfen Masa Numarası Giriniz", Snackbar.LENGTH_SHORT).show();
+                else
+               {
+                   int table_number;
+                   table_number = Integer.parseInt(table_number_edit_text.getText().toString());
+                   String customer_notes = product_note_edit_text.getText().toString();
+                   PosttoServer(table_number, customer_notes);
+                   global.clearCart();
+                   mAdapter.notifyDataSetChanged();
+               }
+
+
+
+
+
+
+
+
+
+
+
 
             }
         });
@@ -231,7 +253,7 @@ public class CartFragment extends Fragment {
 
 
     // Sipariş Detayları hangi üründen kaçar tane olduğu gidecek
-    private String OrderDetails()
+    private String OrderDetailsforCustomer()
     {
 
         String order_details="";
@@ -243,6 +265,22 @@ public class CartFragment extends Fragment {
             Product product = global.getCart().get(i);
 
             order_details = order_details + product.getName()+" x "+product.getTotal()+" ="+product.getSumPrice()+" \u20BA\n";
+        }
+
+        return order_details;
+    }
+
+    private String OrderDetailsforServer()
+    {
+        String order_details="";
+
+        for(int i =0;i<global.getCart().size();i++)
+        {
+            // sipariş verirken detaylar yazdır mobil tarafında
+            //order_details = order_details + global.getCart().get(i).getName()+"x =  "+global.getCart().get(i).getTotal()+"\u20BA\n";
+            Product product = global.getCart().get(i);
+
+            order_details = order_details + product.getName()+" x "+product.getTotal();
         }
 
         return order_details;
@@ -267,7 +305,7 @@ public class CartFragment extends Fragment {
     {
         Order order = new Order();
 
-        order.setProducts(OrderDetails());
+        order.setProducts(OrderDetailsforServer());
         order.setTable_number(table_number);
         order.setMac_address(mac_address);
         order.setDescription(customer_note);

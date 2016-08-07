@@ -39,7 +39,7 @@
                 android:id="@+id/txt_notfound"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Cart Empty"
+                android:text="@string/cart_empty"
                 android:textAppearance="@style/TextAppearance.AppCompat.Title"
                 android:textColor="@color/grey_medium" />
 
@@ -66,7 +66,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text=" - 4 Items"
+
             android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
             android:textColor="@color/grey_hard"
             android:textStyle="normal" />
@@ -98,7 +98,7 @@
                 android:layout_height="wrap_content"
                 android:background="@color/colorPrimary"
                 android:minHeight="?attr/actionBarSize"
-                android:text="PROCEED TO CHECKOUT"
+                android:text="@string/check_out"
                 android:textColor="@android:color/white" />
         </com.balysv.materialripple.MaterialRippleLayout>
     </LinearLayout>

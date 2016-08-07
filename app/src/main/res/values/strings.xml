@@ -26,6 +26,9 @@
     <string name="remove">Sil</string>
     <string name="save">Kaydet</string>
     <string name="quantity">Miktar</string>
+    <string name="check_out">Sipariş Ver</string>
+    <string name="cart_empty">Sepet Boş</string>
+    <string name="no_item">Ürün Yok</string>
 
     <!--exit notification-->
     <string name="press_again_exit_app">Press again to exit</string>

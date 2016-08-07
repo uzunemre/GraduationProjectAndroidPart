@@ -6,11 +6,8 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.ShareCompat;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,8 +26,6 @@ import emreuzun.com.tabletmenu.adapter.CartListAdapter;
 
 import emreuzun.com.tabletmenu.data.GlobalVariable;
 
-import emreuzun.com.tabletmenu.retrofit.Order;
-import emreuzun.com.tabletmenu.retrofit.PostOrder;
 import emreuzun.com.tabletmenu.retrofit.Product;
 import emreuzun.com.tabletmenu.utils.PhoneInfo;
 import emreuzun.com.tabletmenu.utils.UtilConstant;
